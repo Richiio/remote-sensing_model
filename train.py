@@ -16,7 +16,7 @@ if __name__ == '__main__':
         default_save_path="output/",
         gpus=1,
         accumulate_grad_batches=dc.accumulate_size//dc.batch_size,
-        amp_level="o1",  # GPU半精度
+        amp_level="o1", 
         max_epochs=200,
         checkpoint_callback=pl.callbacks.model_checkpoint.ModelCheckpoint(
             filepath='output/'+dc.backbone_name+'-{epoch}-{val_acc:.3f}',
