@@ -4,7 +4,7 @@ import model_finetune
 import cv2
 import albumentations as alb
 
-weights = torch.load(r"output/resnet34-epoch=9-val_acc=0.966.ckpt")["state_dict"] # 模型权重
+weights = torch.load(r"output/resnet34-epoch=9-val_acc=0.966.ckpt")["state_dict"]
 for k in list(weights.keys()):
     weights[str(k)[4:]]=weights.pop(k)
 
