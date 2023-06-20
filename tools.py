@@ -21,7 +21,7 @@ import os
 
 def result_error():
 
-    ################## 错误图像可视化
+    ##################
     model = LitPlants.load_from_checkpoint(r"output/resnet34-epoch=29-val_acc=0.975.ckpt").cuda()
     model.eval()
     test_dataset = PlantDataset(
@@ -36,21 +36,20 @@ def result_error():
     s = 0
     for k, (x, y) in enumerate(test_loader):
         pred = torch.softmax(model(x.cuda()), dim=1)
-        for img, i, j in zip(x, y, pred):  # 图像，真实标签，预测值
+        for img, i, j in zip(x, y, pred): 
             img = np.transpose(img.numpy(), (1, 2, 0))[:, :, ::-1]
             img = imutils.resize(img * dc.RGB_STD + dc.RGB_MEAN, 540)
             if torch.argmax(j).item() != i:
-                print(f"批量：{k},预测值：{dc.labels_dict[torch.argmax(j).item()]}, 真实值：{dc.labels_dict[i]}，预测错误")
+                print(f"batch：{k},predictive_value：{dc.labels_dict[torch.argmax(j).item()]}, actual_value：{dc.labels_dict[i]}，prediction_error")
                 s += 1
                 cv2.imshow("", img)
                 cv2.waitKey(0)
             else:
-                print(f"{k},预测正确")
+                print(f"{k},Done")
 
     print(s, len(test_dataset),1-s/len(test_dataset))
 
 def result_combine():
-    ## 结果投票
     path = glob.glob("output/tta-*.csv")
 
     r = pd.read_csv(path[0]).to_numpy()
