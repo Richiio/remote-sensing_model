@@ -28,7 +28,6 @@ import torch.nn.functional as F
 def VGG(arch_name, num_classes, pretrained=True):
     assert "vgg" in arch_name
     backbone = models.__dict__[arch_name](pretrained)
-    # 修改分类层
     # backbone.avgpool = nn.AdaptiveMaxPool2d(output_size=(1, 1))
     # backbone.classifier[-1] =nn.Linear(
     #         backbone.classifier[-1].in_features, num_classes)
