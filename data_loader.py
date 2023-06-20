@@ -7,7 +7,6 @@ import numpy as np
 from torchvision import transforms
 from torch.utils.data import DataLoader
 import albumentations as alb
-import cv2
 import torchvision
 import matplotlib.pyplot as plt
 from config import DefaultConfig as dc
@@ -27,7 +26,6 @@ class PlantDataset(Dataset):
         return self.df.shape[0]
 
     def __getitem__(self, idx):
-        # idx = 256 # 仅数据增强测试用
         image_src = self.df.loc[idx, 'path']
         image = io.imread(image_src)
 
